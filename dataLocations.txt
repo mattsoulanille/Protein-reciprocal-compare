@@ -1,0 +1,3 @@
+http://www.echinobase.org/Echinobase/SpDownloads
+http://www.echinobase.org/Echinobase/LvDownloads
+http://www.echinobase.org/Echinobase/PmDownload
