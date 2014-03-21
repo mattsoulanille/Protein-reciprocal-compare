@@ -57,11 +57,14 @@ in_file_2 = sys.argv[2]
 d1 = load_csv_to_dict(in_file_1)
 d2 = load_csv_to_dict(in_file_2)
 
-output = csv.writer(sys.stdout)
-
+#output = csv.writer(sys.stdout)
+output = []
+outfile = open(sys.argv[3], 'w+')
 for seqname in d1:
-    seqmatch1 = d1[seqname]
-    seqmatch2 = d2.get(seqmatch1)
+    seqmatch1 = d1[seqname][0]
+    seqmatch2 = d2.get(seqmatch1,[None])[0]
 
     if seqmatch2 == seqname:
-        output.writerow([seqname, seqmatch1])
+#        output.writerow([seqname, seqmatch1])
+        outfile.write(str([seqname, seqmatch1]) + ',')
+        output.append([seqname,seqmatch1])
