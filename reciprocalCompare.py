@@ -25,6 +25,36 @@ def readArgs():
             
 args = readArgs()
 
+def list_line_sort(data, line):
+    data.sort(key=lambda x: x[line])
+
+line = 2
+
+for flag in args[0]:
+    if args[0] == []:
+        break
+    if flag[0] == flag[1] == '-':
+        if flag == '--help':
+            printHelp()
+        elif flag == '--sort=e':
+            line = 2
+        elif flag == '--sort=file1':
+            line = 0
+        elif flag == '--sort=file2':
+            line = 1
+        else:
+            raise Exception("Unrecognized argument: " + flag + "for help, run with --help")
+        break
+    elif 'e' in flag:
+        line = 2
+    elif '1' in flag:
+        line = 0
+    elif '2' in flag:
+        line = 1
+    else:
+        raise Exception("Unrecognized argument: " + flag + "for help, run with --help")
+
+
 
 def dataToDict(filename):
     d = {}
@@ -52,42 +82,8 @@ for iterate in xrange(0, min(len(d1), len(d2))-1):
         outlist = [seq, opp, max(d1[seq][1], d2[opp][1])]
         output.append(outlist)
 
-def list_line_sort(data, line):
-    data.sort(key=lambda x: x[line])
-def e_value_sort(data):
-    return list_line_sort(data, 2)
-def second_file_sort(data):
-    return list_line_sort(data, 1)
-def first_file_sort(data):
-    return list_line_sort(data, 0)
 
-# This flag checking needs to be moved to a place where it will warn the user before doing all the long calculations.
-for flag in args[0]:
-    if args[0] == []:
-        e_value_sort(output)
-        break
-    if flag[0] == flag[1] == '-':
-        if flag == '--help':
-            printHelp()
-        elif flag == '--sort=e':
-            e_value_sort(output)
-        elif flag == '--sort=file1':
-            first_file_sort(output)
-        elif flag == '--sort=file2':
-            second_file_sort(output)
-        else:
-            raise Exception("Unrecognized argument: " + flag + "for help, run with --help")
-        break
-    elif 'e' in flag:
-        e_value_sort(output)
-    elif '1' in flag:
-        first_file_sort(output)
-    elif '2' in flag:
-        second_flag_sort(output)
-    else:
-        raise Exception("Unrecognized argument: " + flag + "for help, run with --help")
-
-        
+list_line_sort(output, line)        
 
 with open(args[3], 'w+') as outfile:
     for line in output:
