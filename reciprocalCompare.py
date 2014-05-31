@@ -43,7 +43,7 @@ for flag in args[0]:
         elif flag == '--sort=file2':
             line = 1
         else:
-            raise Exception("Unrecognized argument: " + flag + "for help, run with --help")
+            raise Exception("Unrecognized argument: " + flag + " for help, run with --help")
         break
     elif 'e' in flag:
         line = 2
@@ -52,7 +52,7 @@ for flag in args[0]:
     elif '2' in flag:
         line = 1
     else:
-        raise Exception("Unrecognized argument: " + flag + "for help, run with --help")
+        raise Exception("Unrecognized argument: " + flag + " for help, run with --help")
 
 
 
