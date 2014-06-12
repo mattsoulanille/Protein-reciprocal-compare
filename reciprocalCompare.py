@@ -28,7 +28,8 @@ args = readArgs()
 
 def list_line_sort(data, line):
     data.sort(key=lambda x: x[line])
-
+def list_line_num_sort(data, line):
+    data.sort(key=lambda x: float(x[line]))
 line = 2
 outputMode = 0
 prefdict = {"outputMode":0, "sort":2}
@@ -104,8 +105,12 @@ for iterate in xrange(0, min(len(d1), len(d2))-1):
         outlist = [seq, opp, max(d1[seq][1], d2[opp][1])]
         output.append(outlist)
 
+if prefdict["sort"] == 2:
+    list_line_num_sort(output, prefdict["sort"])
+else:
+    list_line_sort(output, prefdict["sort"])
 
-list_line_sort(output, prefdict["sort"])
+
 if prefdict["outputMode"] == 0:
     with open(args[3], 'w+') as outfile:
         for line in output:
