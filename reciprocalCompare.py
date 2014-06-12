@@ -4,7 +4,7 @@ from functools import partial
 e_cutoff = 1e-3
 
 def printHelp():
-    sys.exit("This is the help text. Helpful, right? :P will change.")
+    sys.exit("")
 
 def readArgs():
     file1 = ''
@@ -109,11 +109,13 @@ if prefdict["sort"] == 2:
     list_line_num_sort(output, prefdict["sort"])
 else:
     list_line_sort(output, prefdict["sort"])
+def writeOutput(place):
+    csvWriter = csv.writer(place, dialect='excel')
+    for line in output:
+        csvWriter.writerow(line)
 
-
+outfile = open(args[3], 'w+')
 if prefdict["outputMode"] == 0:
-    with open(args[3], 'w+') as outfile:
-        for line in output:
-            outfile.write(str(line) + '\n')
+    writeOutput(outfile)
 elif prefdict["outputMode"] == 1:
-    sys.stdout.write(str(output))
+    writeOutput(sys.stdout)
