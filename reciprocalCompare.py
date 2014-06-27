@@ -1,10 +1,10 @@
-# Fix sorting e values like they are words
+#! /usr/bin/env python
 import sys, csv
 from functools import partial
 e_cutoff = 1e-3
 
 def printHelp():
-    sys.exit("")
+    sys.exit("NAME\n\treciprocalCompare: A tool for sorting through the results of a reciprocal blast.\nSYNOPSIS\n\treciprocalCompare --help\n\treciprocalCompare [-[|]e12] [-s] file1 file2 [outputfile]\nDESCRIPTION\n\treciprocalCompare finds the best matches (smallest e value) between the results of blasting two sequences against each other. Blast result format must be tabular (option 8 on blastall 2.2.24), and the parser expects the first, second, and eleventh columns in the results file to be the query sequence name, the database sequence name, and the e value respectively.\nOPTIONS\n\t-s Write output to standard out instead of to a file. No output file should be specified. The Blast format for the input files must be tabular without comment lines (option \"-m 8\" on blastall 2.2.24)\n\n\t-1 Sorts output alphabetically by the first file's sequence names./n/n/t-2 Sorts output alphabetically by the second file's sequence names.\n\n\t-e Sorts output by e value (default).")
 
 def readArgs():
     file1 = ''
@@ -40,7 +40,7 @@ def passign(key, value):
     assign(key, value, prefdict)
 
 
-flagdict = {"e":partial(passign, "sort", 2), "--sort=e":partial(passign, "sort", 2), "1":partial(passign, "sort", 0), "--sort=file1":partial(passign, "sort", 0), "2":partial(passign, "sort", 1), "--sort=file2":partial(passign, "sort", 1), "--stdout":partial(passign, "outputMode", 1), "s":partial(passign, "outputMode", 1)}
+flagdict = {"e":partial(passign, "sort", 2), "--sort=e":partial(passign, "sort", 2), "1":partial(passign, "sort", 0), "--sort=file1":partial(passign, "sort", 0), "2":partial(passign, "sort", 1), "--sort=file2":partial(passign, "sort", 1), "--stdout":partial(passign, "outputMode", 1), "s":partial(passign, "outputMode", 1), "--help":printHelp()}
 
 def checkDefined(l, b, e):
     returnlist = []
@@ -60,7 +60,7 @@ for arg in args[0]:
             try: flagdict[letter]()
             except: sys.exit("Error: Unknown argument '" + str(letter) + "' Use --help for help.")
     else:
-        raise Exception("something is very broken D:")
+        raise Exception("something is very broken D: Check the function that sorts arguments.")
         
         
                 
